@@ -1,0 +1,48 @@
+<div>
+    <div class="custom-card flex">
+        <p>Resumen de dinero <span>{{ getBalance() }}</span>€</p>
+        <button class="circular-button" (click)="visible = !visible"><span class="pi pi-fw pi-plus"></span></button>
+    </div>
+    <p-dataView #dv [value]="items">
+        <ng-template pTemplate="list" let-items>
+            <div class="grid grid-nogutter table">
+                <div class="flex p-4 gap-4 col-12 row-item" *ngFor="let item of items; let i = index" [ngStyle]="{ 'background-color': item.type === 'expense' ? '#ffebee' : '#e8f5e9' }">
+                    <div class="flex flex-column xl:flex-row xl:align-items-start gap-4">
+                        <div class="flex sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+                            <i class="pi pi-fw" style="margin-right: 10px;" [ngClass]="{'pi-arrow-right': item.type === 'income', 'pi-arrow-left': item.type === 'expense'}"></i>
+                            <div class="flex-column">
+                                <span>{{ item.title }}</span>
+                                <span style="color: #666666; font-size: 13px; font-style: italic;">{{ item.description }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-column">
+                        <span class="text-2xl font-semibold">{{ item.amount + '€' }}</span>
+                        <button pButton icon="pi pi-trash" class="align-self-end mb-2 p-button-rounded delete-button" (click)="onDeleteItem(i)" type="button"></button>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+    </p-dataView>
+</div>
+<p-dialog header="Añadir gasto/ingreso" [(visible)]="visible">
+    <form [formGroup]="form" (ngSubmit)="onAddItem()">
+        <span class="p-float-label margin-top">
+            <input pInputText formControlName="title"/>
+            <label>Título</label>
+        </span>
+        <span class="p-float-label margin-top">
+            <p-dropdown [options]="options" formControlName="type"></p-dropdown>
+            <label for="float-label">Tipo</label>
+        </span>
+        <span class="p-float-label margin-top">
+            <p-inputNumber formControlName="amount"></p-inputNumber>
+            <label>Cantidad</label>
+        </span>
+        <span class="p-float-label margin-top">
+            <input pInputText formControlName="description"/>
+            <label>Descripción</label>
+        </span>
+        <button pButton label="Guardar" icon="pi pi-check" class="margin-top" [disabled]="!form.valid" type="submit"></button>
+    </form>
+</p-dialog>

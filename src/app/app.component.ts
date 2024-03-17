@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,21 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'money-manager-desk';
+  menu: MenuItem[] = [
+    {
+      label: 'Finanzas',
+      icon: 'pi pi-fw pi-file',
+      routerLink: '/finances'
+    },
+    {
+      label: 'Deudas',
+      icon: 'pi pi-fw pi-money-bill',
+      routerLink: '/debts'
+    },
+    {
+      label: 'Monitor',
+      icon: 'pi pi-fw pi-chart-line',
+      routerLink: '/monitor'
+    }
+  ];
 }

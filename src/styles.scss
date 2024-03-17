@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+
+.custom-card {
+    padding: 0.5rem;
+    margin: 0 0.5rem;
+    background: #ffffff;
+    color: #4b5563;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    width: 100%;
+}
